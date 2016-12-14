@@ -3,8 +3,7 @@ eval $1
 echo $TRAVIS_TAG
 
 RELEASE=main
-DEBVERSION=$TRAVIS_TAG
-DEB="../helloworld_$DEBVERSION_$DEBARCH.deb"
+DEB=../helloworld_${TRAVIS_TAG}_${DEBARCH}.deb
 
 echo $DEB
 pwd
