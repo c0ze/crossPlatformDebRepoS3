@@ -1,0 +1,31 @@
+#!/usr/bin/make -f
+# vim: tabstop=4 softtabstop=4 noexpandtab fileencoding=utf-8
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+
+PKGDIR=debian/helloworld
+
+%:
+	dh $@
+
+clean:
+	dh_clean
+	rm -rf $(CURDIR)/bin/* $(CURDIR)/pkg/*
+	rm -f $(CURDIR)/goinstall.log
+
+binary-arch: clean
+	dh_prep
+	dh_installdirs
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_install
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-arch

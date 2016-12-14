@@ -1,0 +1,11 @@
+Source: helloworld
+Section: devel
+Priority: optional
+Maintainer: Arda Karaduman <akaraduman@gmail.com>
+Homepage: https://github.com/c0ze/crossPlatformDebRepoS3
+Standards-Version: 3.7.3
+
+Package: helloworld
+Architecture: armhf amd64
+Depends: ${shlibs:Depends}
+Description: Example s3 deb repo project.
