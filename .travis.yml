@@ -20,7 +20,7 @@ env:
 before_install:
 - openssl aes-256-cbc -K $encrypted_f87500241524_key -iv $encrypted_f87500241524_iv
   -in signing.key.enc -out signing.key -d
-- apt-get update
-- apt-get install -y git ruby ruby-dev zlib1g-dev dh-make --fix-missing
-- gem install slim deb-s3 --no-rdoc --no-ri
-- gpg --import signing.key
+- sudo apt-get update
+- sudo apt-get install -y git ruby ruby-dev zlib1g-dev dh-make --fix-missing
+- sudo gem install slim deb-s3 --no-rdoc --no-ri
+- sudo gpg --import signing.key
