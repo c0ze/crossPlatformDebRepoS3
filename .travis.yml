@@ -1,38 +1,17 @@
 language: go
 
-stages:
-  - build
+go:
+  - 1.7.3
 
-.build:common: &build_common
-  image: golang:1.7.3
-  stage: build
-  only:
-    - "/^release-.+$/"
-  script:
-    - apt-get update
-    - apt-get install -y git ruby ruby-dev zlib1g-dev npm sudo dh-make jq --fix-missing
-    - gem install slim deb-s3 --no-rdoc --no-ri
-    - gpg --import signing.key
-    - go build -o files/usr/bin/helloworld
-    - dpkg-buildpackage -a$DEBARCH -tlinux -B -us -uc
-    - pwd
-    - ls
-    - sh ./deploy_script.sh main ../helloworld_`awk -F\" '{print $2,$4}' version.go | xargs`_$DEBARCH.deb $DEBARCH
+only:
+  - "/^release-.+$/"
 
-build:amd64:
-  variables:
-    GOOS: linux
-    GOARCH: amd64
-    DEBARCH: amd64
-
-build:armhf:
-  variables:
-    GOOS: linux
-    GOARCH: arm
-    GOARM: '7'
-    DEBARCH: armhf
+script: "sh ./build_and_deploy.sh $BUILD_ARGS"
 
 env:
+  matrix:
+    - BUILD_ARGS="GOOS=linux;GOARCH=amd64;DEBARCH=amd64"
+    - BUILD_ARGS="GOOS=linux;GOARCH=arm;DEBARCH=armhf;GOARM=7"
   global:
     - RELEASE_KEY_ID: B6AD190A
     - secure: clbfKHLDuPNPS4Cpu6h/ub9+LtW76oOjBlo3e462f3W8lQg/u9ot6Zf+zjWRwZrq/Ja1XzMq/RAu5hy12NwsygRFeTDQeuBRKnLpZBoCQ6JLQMsyQhaQCgdSDSZAXO45j37e+iiW2YwHefYd9tCUzHdL5p8y0jDju5pEVasstxSFJ2zj3rnWn7saweMoGrxhweCtIODUic4n/8WgmizGUKywb2hXQoYxj+FSIH9Q1jKOL0rrTyG3gwhNhUxQPoiBVsvyqKBPgXh8wrZ79QMHkADY1QxT6948TQ61M+j/s8RpjWLom3/Lr+PkxW25RQtahu3pPWx99pO0tk5C88b6Kv8csdr8jRe7EoMeQt5TnMPHT183uDpHA/1efrqCxu6XHz4Gu/GqOtdQajG2HOGoKRk7jmtjtSrlieE0SRzSpFQkg2uzEi8GozxvtMGE97Gow2pjyvY/k0BvOTNKGi2FUuc0nEYFnwsc4nfYlPxUnfhdhrjHJZdHXoueiPzBkKSFNQqQBEJdWBxmakVhjVJG8whD6SRx/WDbFaI+vfS4nEnNcHU8HptNJ169TUYTce033fSF3L9iElqrbPlmcOVrmcO86BBtOdV1pKGzZ3q6wsz3rc+hPg6l9//dENJCXHfMrtgp1KD5IF1C1nb/F6leiRFFlJlTYsRayjpgD5RkVnQ=
@@ -41,3 +20,7 @@ env:
 before_install:
 - openssl aes-256-cbc -K $encrypted_f87500241524_key -iv $encrypted_f87500241524_iv
   -in signing.key.enc -out signing.key -d
+- apt-get update
+- apt-get install -y git ruby ruby-dev zlib1g-dev dh-make --fix-missing
+- gem install slim deb-s3 --no-rdoc --no-ri
+- gpg --import signing.key
