@@ -3,11 +3,6 @@ language: go
 go:
   - 1.7.3
 
-only:
-  - "/^release-.+$/"
-
-script: "./build_and_deploy.sh $BUILD_ARGS"
-
 env:
   matrix:
     - BUILD_ARGS="GOOS=linux;GOARCH=amd64;DEBARCH=amd64"
@@ -20,8 +15,18 @@ env:
 before_install:
 - openssl aes-256-cbc -K $encrypted_f87500241524_key -iv $encrypted_f87500241524_iv
   -in signing.key.enc -out signing.key -d
-- sudo apt-add-repository -y ppa:brightbox/ruby-ng
-- sudo apt-get update
-- sudo apt-get install -y git ruby2.2 ruby2.2-dev rubygems zlib1g-dev dh-make --fix-missing
-- sudo gem install deb-s3 --no-rdoc --no-ri
-- sudo gpg --import signing.key
+
+install:
+  - sudo apt-add-repository -y ppa:brightbox/ruby-ng
+  - sudo apt-get -q update
+  - sudo apt-get install -y git ruby2.2 ruby2.2-dev rubygems zlib1g-dev dh-make --fix-missing
+  - sudo gem install deb-s3 --no-rdoc --no-ri
+  - sudo gpg --import signing.key
+
+script: "scripts/build.sh $BUILD_ARGS"
+
+deploy:
+  provider: script
+  script: "scripts/deploy.sh $BUILD_ARGS"
+  on:
+    tags: true
