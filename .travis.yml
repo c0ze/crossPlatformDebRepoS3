@@ -22,5 +22,5 @@ before_install:
   -in signing.key.enc -out signing.key -d
 - sudo apt-get update
 - sudo apt-get install -y git ruby ruby-dev rubygems zlib1g-dev dh-make --fix-missing
-- sudo gem install slim deb-s3 --no-rdoc --no-ri
+- sudo gem install deb-s3 --no-rdoc --no-ri
 - sudo gpg --import signing.key
