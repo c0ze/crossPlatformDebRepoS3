@@ -4,7 +4,13 @@ go build -o files/usr/bin/helloworld
 dpkg-buildpackage -a$DEBARCH -tlinux -B -us -uc
 
 RELEASE=main
-DEB="../helloworld_`awk -F\" '{print $2,$4}' version.go | xargs`"
+VERSION=`awk -F\" '{print $2,$4}' version.go | xargs`
+DEB="../helloworld_$VERSION_$DEBARCH.deb"
+
+echo $DEB
+pwd
+ls
+ls ..
 
 deb-s3 upload --bucket deb-repo-coze \
        -a $DEB_ARCH --lock --no-fail-if-exists --preserve-versions \
