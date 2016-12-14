@@ -21,6 +21,6 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_f87500241524_key -iv $encrypted_f87500241524_iv
   -in signing.key.enc -out signing.key -d
 - sudo apt-get update
-- sudo apt-get install -y git ruby1.9.3 ruby1.9.3-dev rubygems zlib1g-dev dh-make --fix-missing
+- sudo apt-get install -y git ruby1.9.3 ruby-dev rubygems zlib1g-dev dh-make --fix-missing
 - sudo gem install deb-s3 --no-rdoc --no-ri
 - sudo gpg --import signing.key
