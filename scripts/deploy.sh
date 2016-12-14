@@ -8,16 +8,11 @@ done
 
 IFS=$OIFS
 
-echo $DEBARCH
-echo $TRAVIS_TAG
 
 RELEASE=main
 DEB=../helloworld_${TRAVIS_TAG}_${DEBARCH}.deb
 
-echo $DEB
-pwd
-ls
-ls ..
+rvm use .
 
 deb-s3 upload --bucket deb-repo-coze \
        -a $DEBARCH --lock --no-fail-if-exists --preserve-versions \
