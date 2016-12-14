@@ -22,6 +22,6 @@ before_install:
   -in signing.key.enc -out signing.key -d
 - sudo apt-add-repository -y ppa:brightbox/ruby-ng
 - sudo apt-get update
-- sudo apt-get install -y git ruby2.2 ruby-dev rubygems zlib1g-dev dh-make --fix-missing
+- sudo apt-get install -y git ruby2.2 ruby2.2-dev rubygems zlib1g-dev dh-make --fix-missing
 - sudo gem install deb-s3 --no-rdoc --no-ri
 - sudo gpg --import signing.key
