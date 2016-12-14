@@ -4,8 +4,8 @@ go build -o files/usr/bin/helloworld
 dpkg-buildpackage -a$DEBARCH -tlinux -B -us -uc
 
 RELEASE=main
-VERSION=`awk -F\" '{print $2,$4}' version.go | xargs`
-DEB="../helloworld_$VERSION_$DEBARCH.deb"
+DEBVERSION=`awk -F\" '{print $2,$4}' version.go | xargs`
+DEB="../helloworld_$DEBVERSION_$DEBARCH.deb"
 
 echo $DEB
 pwd
