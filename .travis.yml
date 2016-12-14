@@ -22,7 +22,7 @@ before_install:
   -in signing.key.enc -out signing.key -d
 
 install:
-  - sudo gem install deb-s3 --no-rdoc --no-ri
+  - gem install deb-s3 --no-rdoc --no-ri
   - sudo gpg --import signing.key
 
 script: "scripts/build.sh $BUILD_ARGS"
