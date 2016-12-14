@@ -9,7 +9,7 @@ done
 IFS=$OIFS
 
 
-RELEASE=main
+RELEASE=stable
 DEB=../helloworld_${TRAVIS_TAG}_${DEBARCH}.deb
 
 deb-s3 upload --bucket deb-repo-coze \
