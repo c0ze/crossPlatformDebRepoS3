@@ -8,7 +8,6 @@ done
 
 IFS=$OIFS
 
-
 RELEASE=stable
 DEB=../helloworld_${TRAVIS_TAG}_${DEBARCH}.deb
 

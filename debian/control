@@ -7,5 +7,4 @@ Standards-Version: 3.7.3
 
 Package: helloworld
 Architecture: armhf amd64
-Depends: ${shlibs:Depends}
 Description: Example s3 deb repo project.
