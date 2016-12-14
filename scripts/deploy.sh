@@ -1,7 +1,13 @@
-eval $1
-echo $1
-echo $2
-echo $3
+OIFS=$IFS
+IFS=','
+vars=$1
+for var in $vars
+do
+    eval $var
+done
+
+IFS=$OIFS
+
 echo $DEBARCH
 echo $TRAVIS_TAG
 
