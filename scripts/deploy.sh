@@ -12,8 +12,6 @@ IFS=$OIFS
 RELEASE=main
 DEB=../helloworld_${TRAVIS_TAG}_${DEBARCH}.deb
 
-rvm use .
-
 deb-s3 upload --bucket deb-repo-coze \
        -a $DEBARCH --lock --no-fail-if-exists --preserve-versions \
        --access-key-id=$AWS_ACCESS_KEY \

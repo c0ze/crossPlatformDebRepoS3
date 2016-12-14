@@ -23,6 +23,7 @@ before_install:
 - sudo apt-get install dh-make --fix-missing -y
 
 install:
+  - rvm use 2.2.5
   - gem install deb-s3 --no-rdoc --no-ri
   - sudo gpg --import signing.key
 
