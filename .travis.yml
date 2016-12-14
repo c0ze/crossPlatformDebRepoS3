@@ -6,7 +6,7 @@ go:
 only:
   - "/^release-.+$/"
 
-script: "sh ./build_and_deploy.sh $BUILD_ARGS"
+script: "./build_and_deploy.sh $BUILD_ARGS"
 
 env:
   matrix:
