@@ -25,7 +25,7 @@ before_install:
 install:
   - rvm use 2.2.5
   - gem install deb-s3 --no-rdoc --no-ri
-  - sudo gpg --import signing.key
+  - gpg --import signing.key
 
 script: "scripts/build.sh $BUILD_ARGS"
 
